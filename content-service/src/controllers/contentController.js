@@ -11,6 +11,19 @@ export const create = async (req, res) => {
   }
 }
 
+export const fetchById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const content = await Content.findById(id);
+    if (!content) {
+      return res.status(404).json({ message: "Content Not found" });
+    }
+    res.status(200).json({ message: "Content fetched successfully", data: content });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error", error });
+  }
+}
+
 export const fetch = async (req, res) => {
   try {
     const contents = await Content.find();
