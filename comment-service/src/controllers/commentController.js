@@ -1,4 +1,4 @@
-import commentModel from "../models/commentModel";
+import commentModel from "../models/commentModel.js";
 
 export const create = async (req, res) => {
   try {
@@ -11,11 +11,12 @@ export const create = async (req, res) => {
   }
 }
 
-export const fetch = async (req, res) => {
+export const fetchByContentId = async (req, res) => {
   try {
-    const comments = await commentModel.find();
+    const contentId = req.params.contentId;
+    const comments = await commentModel.find({ contentId: contentId });
     if (comments.length === 0) {
-      return res.status(404).json({ message: "Comment Not found" });
+      return res.status(404).json({ message: "No comments found for this content" });
     }
     res.status(200).json({ message: "Comments fetched successfully", data: comments });
   } catch (error) {
@@ -26,13 +27,13 @@ export const fetch = async (req, res) => {
 export const deleteComment = async (req, res) => {
   try {
     const id = req.params.id;
-    const commentExist = await commentModel.findById({ _id: id });
+    const commentExist = await commentModel.findById(id);
     if (!commentExist) {
       return res.status(404).json({ message: "Comment Not found" });
     }
 
-    await commentModel.findByIdAndDelete({ _id: id });
-    res.status(201).json({ message: "Comment deleted successfully" });
+    await commentModel.findByIdAndDelete(id);
+    res.status(200).json({ message: "Comment deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error", error });
   }
