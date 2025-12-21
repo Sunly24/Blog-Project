@@ -26,8 +26,8 @@ app.use(limiter);
 
 // Health Check
 app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'UP', 
+  res.status(200).json({
+    status: 'UP',
     message: 'API Gateway is running',
     timestamp: new Date().toISOString()
   });
@@ -39,14 +39,14 @@ app.use('/api/content', contentRoutes);
 app.use('/api/comment', commentRoutes);
 
 // 404 Handler
-app.use('*', (req, res) => {
+app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
 // Error Handler
 app.use((err, req, res, next) => {
   console.error('Error:', err.message);
-  res.status(err.status || 500).json({ 
+  res.status(err.status || 500).json({
     message: err.message || 'Internal Server Error',
     error: process.env.NODE_ENV === 'development' ? err : {}
   });

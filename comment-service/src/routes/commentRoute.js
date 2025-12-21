@@ -1,5 +1,5 @@
 import express from "express";
-import { create, deleteComment, fetchByContentId } from "../controllers/commentController";
+import { create, deleteComment, fetchByContentId } from "../controllers/commentController.js";
 
 
 const commentRoute = express.Router();
