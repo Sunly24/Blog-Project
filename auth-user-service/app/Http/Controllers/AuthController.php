@@ -47,4 +47,15 @@ class AuthController extends Controller
 
         return ['message' => 'Logged out'];
     }
+
+    public function verify(Request $request)
+    {
+        $user = $request->user();
+        
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
+    }
 }

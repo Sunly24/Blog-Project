@@ -8,6 +8,9 @@ use App\Http\Controllers\AuthController;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::prefix('auth')->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::post('/verify', [AuthController::class, 'verify'])->middleware('auth:sanctum');
+});
