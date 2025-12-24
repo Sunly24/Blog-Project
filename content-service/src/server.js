@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 dotenv.config();
 
 // Specify the port to listen on
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // Connect to MongoDB
 const mongourl = process.env.MONGO_URL;

@@ -11,7 +11,7 @@ services:
     environment:
       - PORT=8080
       - AUTH_SERVICE_URL=http://auth-user-service:8000
-      - CONTENT_SERVICE_URL=http://content-service:3000
+      - CONTENT_SERVICE_URL=http://content-service:3001
       - COMMENT_SERVICE_URL=http://comment-service:4000
       - RATE_LIMIT_WINDOW_MS=900000
       - RATE_LIMIT_MAX_REQUESTS=100
@@ -51,9 +51,9 @@ services:
       dockerfile: dockerfile
     container_name: content-service
     ports:
-      - "3000:3000"
+      - "3001:3001"
     environment:
-      - PORT=3000
+      - PORT=3001
       - MONGO_URL=mongodb://mongo:27017/blog_content
     depends_on:
       - mongo
